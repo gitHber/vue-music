@@ -11,7 +11,9 @@ export function getRecommend() {
 }
 
 export function getDiscList() {
-  const url = '/api/getDiscList'
+  // const url = 'http://192.168.0.104:3000/api/getDiscList' // 服务
+  const url = '/api/getDiscList' // 本地
+
   const data = Object.assign({}, commonParam, {
     platform: 'yqq',
     hostUin: 0,
@@ -23,6 +25,7 @@ export function getDiscList() {
     rnd: Math.random(),
     format: 'json'
   })
+
   return axios.get(url, {
     params: data
   }).then(res => {
