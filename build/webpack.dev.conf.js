@@ -40,6 +40,19 @@ const devWebpackConfig = merge(baseWebpackConfig, {
         }).then(response => {
           res.json(response.data)
         }).catch(e => console.log(e))
+      }),
+      app.get('/api/getVKey', function(req, res){
+        // 获取歌曲链接中vkey
+        var url = 'https://c.y.qq.com/base/fcgi-bin/fcg_music_express_mobile3.fcg'
+        axios.get(url, {
+          headers: {
+            referer: 'https://c.y.qq.com/',
+            host: 'c.y.qq.com'
+          },
+          params: req.query
+        }).then(response => {
+          res.json(response.data)
+        }).catch(e => console.log(e))
       })
     },
     clientLogLevel: 'warning',
