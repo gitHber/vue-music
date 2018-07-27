@@ -16,7 +16,7 @@ const mutations = {
   [types.SET_SEQUENCE_LIST](state, list) {
     state.sequenceList = list
   },
-  [types.SET_MODE](state, mode) {
+  [types.SET_PLAY_MODE](state, mode) {
     state.mode = mode
   },
   [types.SET_CURRENT_INDEX](state, index) {

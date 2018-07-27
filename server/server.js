@@ -7,17 +7,30 @@ var router = express.Router()
 var axios = require('axios')
 
 router.all('*', function(req, res, next) {
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header("Access-Control-Allow-Headers", "X-Requested-With");
-  res.header("Access-Control-Allow-Methods","PUT,POST,GET,DELETE,OPTIONS");
-  res.header("X-Powered-By",' 3.2.1')
-  res.header("Content-Type", "application/json;charset=utf-8");
-  next();
-});
+  res.header('Access-Control-Allow-Origin', '*')
+  res.header('Access-Control-Allow-Headers', 'X-Requested-With')
+  res.header('Access-Control-Allow-Methods', 'PUT,POST,GET,DELETE,OPTIONS')
+  res.header('X-Powered-By', ' 3.2.1')
+  res.header('Content-Type', 'application/json;charset=utf-8')
+  next()
+})
 
-router.get('/api/getDiscList', (req, res, next) => {
-  console.log('1q')
+router.get('/api/getDiscList', function(req, res, next) {
   var url = 'https://c.y.qq.com/splcloud/fcgi-bin/fcg_get_diss_by_tag.fcg'
+  axios.get(url, {
+    headers: {
+      referer: 'https://c.y.qq.com/',
+      host: 'c.y.qq.com'
+    },
+    params: req.query
+  }).then(response => {
+    res.json(response.data)
+  }).catch(e => console.log(e))
+})
+
+router.get('/api/getVKey', function(req, res, next) {
+  // 获取歌曲链接中vkey
+  var url = 'https://c.y.qq.com/base/fcgi-bin/fcg_music_express_mobile3.fcg'
   axios.get(url, {
     headers: {
       referer: 'https://c.y.qq.com/',

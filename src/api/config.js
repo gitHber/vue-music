@@ -10,4 +10,9 @@ export const options = {
   param: 'jsonpCallback'
 }
 
+export const http = {
+  protocol: 'http',
+  ip: '192.168.10.169',
+  port: 3000
+}
 export const ERR_OK = 0

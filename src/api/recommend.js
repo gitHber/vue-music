@@ -1,5 +1,5 @@
 import jsonp from '../common/js/jsonp'
-import { commonParam, options } from './config'
+import { commonParam, options, http } from './config'
 import axios from 'axios'
 
 export function getRecommend() {
@@ -11,8 +11,7 @@ export function getRecommend() {
 }
 
 export function getDiscList() {
-  // const url = 'http://192.168.0.104:3000/api/getDiscList' // 服务
-  const url = '/api/getDiscList' // 本地
+  const url = process.env.NODE_ENV === 'production' ? `${http.protocol}://${http.ip}:${http.port}/api/getDiscList` : '/api/getDiscList'
 
   const data = Object.assign({}, commonParam, {
     platform: 'yqq',

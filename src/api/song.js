@@ -1,12 +1,12 @@
-// import jsonp from 'common/js/jsonp'
-// import {commonParam, options} from './config'
+import {http} from './config'
 import axios from 'axios'
 
 export function getVKey(songmid) {
   if (!songmid) return Promise.resolve('')
   const filename = `C400${songmid}.m4a`
   const guid = _getGuid()
-  return axios.get('/api/getVKey', {
+  let url = process.env.NODE_ENV === 'production' ? `${http.protocol}://${http.ip}:${http.port}/api/getVKey` : '/api/getVKey'
+  return axios.get(url, {
     params: {
       format: 'json',
       cid: 205361747,
