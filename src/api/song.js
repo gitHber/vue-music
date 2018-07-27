@@ -1,6 +1,9 @@
-import {http} from './config'
+import {http, commonParam} from './config'
 import axios from 'axios'
 
+/**
+ * 通过songmid和vkey获取歌曲链接
+ */
 export function getVKey(songmid) {
   if (!songmid) return Promise.resolve('')
   const filename = `C400${songmid}.m4a`
@@ -20,8 +23,28 @@ export function getVKey(songmid) {
     return Promise.resolve(`http://dl.stream.qqmusic.qq.com/${filename}?vkey=${vkey}&guid=${guid}&uin=0&fromtag=66`)
   })
 }
-
+/**
+ * 生成参数guid
+ */
 function _getGuid() {
   var t = (new Date()).getUTCMilliseconds()
   return Math.round(2147483647 * Math.random()) * t % 1e10
+}
+
+export function getLyric(mid) {
+  const url = '/api/lyric'
+  const data = Object.assign({}, commonParam, {
+    songmid: mid,
+    pcachetime: +new Date(),
+    platform: 'yqq',
+    hostUin: 0,
+    needNewCode: 0,
+    g_tk: 67232076,
+    format: 'json'
+  })
+  return axios.get(url, {
+    params: data
+  }).then(res => {
+    return Promise.resolve(res.data)
+  })
 }

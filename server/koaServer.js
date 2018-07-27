@@ -89,6 +89,27 @@ router.get('/api/getVKey', async function(ctx, next) {
     ctx.body = response.data
   }).catch(e => console.log(e))
 })
+router.get('/api/lyric', async function(ctx, next) {
+  // 获取歌曲链接中vkey
+  var url = 'https://c.y.qq.com/lyric/fcgi-bin/fcg_query_lyric_new.fcg'
+  await axios.get(url, {
+    headers: {
+      referer: 'https://c.y.qq.com/',
+      host: 'c.y.qq.com'
+    },
+    params: ctx.request.query
+  }).then(response => {
+    var ret = response.data
+    if (typeof ret === 'string') {
+      var reg = /^\w+\(({[^()]+})\)$/
+      var mathes = ret.match(reg)
+      if (mathes) {
+        ret = JSON.parse(mathes[1])
+      }
+    }
+    ctx.body = ret
+  }).catch(e => console.log(e))
+})
 
 app.use(router.routes()).use(router.allowedMethods())
 console.log('service start port:3000')
