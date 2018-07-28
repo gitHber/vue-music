@@ -64,6 +64,19 @@ app.get('/api/lyric', function(req, res) {
   }).catch(e => console.log(e))
 })
 
+app.get('/api/recommendlist', function(req, res) {
+  var url = 'https://c.y.qq.com/qzone/fcg-bin/fcg_ucc_getcdinfo_byids_cp.fcg'
+  axios.get(url, {
+    headers: {
+      referer: 'https://c.y.qq.com/',
+      host: 'c.y.qq.com'
+    },
+    params: req.query
+  }).then(response => {
+    res.json(response.data)
+  }).catch(e => console.log(e))
+})
+
 app.use('/', router)
 console.log('service start port:3000')
 app.listen(3000)
