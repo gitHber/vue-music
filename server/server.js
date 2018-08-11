@@ -42,7 +42,7 @@ router.get('/api/getVKey', function(req, res, next) {
   }).catch(e => console.log(e))
 })
 
-app.get('/api/lyric', function(req, res) {
+router.get('/api/lyric', function(req, res) {
   // 获取歌曲链接中vkey
   var url = 'https://c.y.qq.com/lyric/fcgi-bin/fcg_query_lyric_new.fcg'
   axios.get(url, {
@@ -64,7 +64,7 @@ app.get('/api/lyric', function(req, res) {
   }).catch(e => console.log(e))
 })
 
-app.get('/api/recommendlist', function(req, res) {
+router.get('/api/recommendlist', function(req, res) {
   var url = 'https://c.y.qq.com/qzone/fcg-bin/fcg_ucc_getcdinfo_byids_cp.fcg'
   axios.get(url, {
     headers: {

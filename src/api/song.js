@@ -1,4 +1,4 @@
-import {http, commonParam} from './config'
+import {getUrl, commonParam} from './config'
 import axios from 'axios'
 
 /**
@@ -8,7 +8,7 @@ export function getVKey(songmid) {
   if (!songmid) return Promise.resolve('')
   const filename = `C400${songmid}.m4a`
   const guid = _getGuid()
-  let url = process.env.NODE_ENV === 'production' ? `${http.protocol}://${http.ip}:${http.port}/api/getVKey` : '/api/getVKey'
+  let url = getUrl('/api/getVKey')
   return axios.get(url, {
     params: {
       format: 'json',
@@ -32,7 +32,7 @@ function _getGuid() {
 }
 
 export function getLyric(mid) {
-  const url = '/api/lyric'
+  const url = getUrl('/api/lyric')
   const data = Object.assign({}, commonParam, {
     songmid: mid,
     pcachetime: +new Date(),

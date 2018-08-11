@@ -12,7 +12,10 @@ export const options = {
 
 export const http = {
   protocol: 'http',
-  ip: '192.168.10.169',
+  ip: 'localhost',
   port: 3000
+}
+export function getUrl(url) {
+  return process.env.NODE_ENV === 'production' ? `${http.protocol}://${http.ip}:${http.port + url}` : url
 }
 export const ERR_OK = 0
